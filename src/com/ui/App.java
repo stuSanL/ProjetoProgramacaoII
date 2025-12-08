@@ -4,7 +4,6 @@ import com.Paths;
 import com.controller.*;
 
 import java.io.File;
-import java.io.IOException;
 
 public class App {
 
@@ -37,7 +36,11 @@ public class App {
         vc = new VendaController(in, out);
     }
 
-    public void run() throws IOException {
+    public void run() {
+            menuPrincipal();
+    }
+
+    private static void menuPrincipal() {
         int opcao;
         while(true){
             out.renderMenu("GPC", opcoesMain);
@@ -67,70 +70,81 @@ public class App {
         }
     }
 
-    private static void gerirCombustivel() throws IOException {
+    private static void gerirCombustivel() {
         int opcao;
         while(true){
             out.renderMenu("Combustíveis", opcoesBase);
             opcao = out.readOption(0, 7);
-            switch(opcao){
-                case 0: return;
-                case 1:
-                    coc.add();
-                    break;
-                case 2:
-                    coc.delete();
-                    break;
-                case 3:
-                    coc.listAll();
-                    break;
-                case 4:
-                    coc.findById();
-                    break;
-                case 5:
-                    coc.update();
-                    break;
-                case 6:
-                    System.out.println("Busca especial:");
-                    break;
+            try {
+                switch(opcao){
+                    case 0: return;
+                    case 1:
+                        coc.add();
+                        break;
+                    case 2:
+                        coc.delete();
+                        break;
+                    case 3:
+                        coc.listAll();
+                        break;
+                    case 4:
+                        coc.findById();
+                        break;
+                    case 5:
+                        coc.update();
+                        break;
+                    case 6:
+                        System.out.println("Busca especial:");
+                        break;
+                }
+            } catch (Exception e) {
+                out.showError(e.getMessage());
             }
+
         }
     }
 
-    private static void gerirTanque() throws IOException {
+    private static void gerirTanque() {
         int opcao;
         while(true){
             out.renderMenu("Tanques", opcoesBase);
             opcao = out.readOption(0, 7);
-            switch(opcao){
-                case 0: return;
-                case 1:
-                    tc.add();
-                    break;
-                case 2:
-                    tc.delete();
-                    break;
-                case 3:
-                    tc.listAll();
-                    break;
-                case 4:
-                    tc.findById();
-                    break;
-                case 5:
-                    tc.update();
-                    break;
-                case 6:
-                    System.out.println("Busca especial:");
-                    break;
+            try {
+                switch(opcao){
+                    case 0: return;
+                    case 1:
+                        tc.add();
+                        break;
+                    case 2:
+                        tc.delete();
+                        break;
+                    case 3:
+                        tc.listAll();
+                        break;
+                    case 4:
+                        tc.findById();
+                        break;
+                    case 5:
+                        tc.update();
+                        break;
+                    case 6:
+                        System.out.println("Busca especial:");
+                        break;
+                }
+            } catch (Exception e) {
+                out.showError(e.getMessage());
             }
+
         }
     }
 
-    private static void gerirCliente() throws IOException {
+    private static void gerirCliente() {
         int opcao;
         while(true){
             out.renderMenu("Clientes", opcoesBase);
             opcao = out.readOption(0, 7);
-            switch(opcao){
+            try {
+                switch(opcao){
                 case 0: return;
                 case 1:
                     clc.add();
@@ -150,65 +164,79 @@ public class App {
                 case 6:
                     System.out.println("Busca especial:");
                     break;
+                }
+            } catch (Exception e) {
+                out.showError(e.getMessage());
             }
+
         }
     }
 
-    private static void gerirFuncionario() throws IOException {
+    private static void gerirFuncionario() {
         int opcao;
         while(true){
             out.renderMenu("Funcionários", opcoesBase);
             opcao = out.readOption(0, 7);
-            switch(opcao){
-                case 0: return;
-                case 1:
-                    fc.add();
-                    break;
-                case 2:
-                    fc.delete();
-                    break;
-                case 3:
-                    fc.listAll();
-                    break;
-                case 4:
-                    fc.findById();
-                    break;
-                case 5:
-                    fc.update();
-                    break;
-                case 6:
-                    System.out.println("Busca especial:");
-                    break;
+            try {
+                switch(opcao){
+                    case 0: return;
+                    case 1:
+                        fc.add();
+                        break;
+                    case 2:
+                        fc.delete();
+                        break;
+                    case 3:
+                        fc.listAll();
+                        break;
+                    case 4:
+                        fc.findById();
+                        break;
+                    case 5:
+                        fc.update();
+                        break;
+                    case 6:
+                        System.out.println("Busca especial:");
+                        break;
+                }
+            } catch (Exception e) {
+                out.showError(e.getMessage());
             }
+
         }
     }
 
-    private static void gerirVenda() throws IOException {
+    private static void gerirVenda() {
         int opcao;
         while(true){
             out.renderMenu("Vendas", opcoesBase);
             opcao = out.readOption(0, 7);
-            switch(opcao){
-                case 0: return;
-                case 1:
-                    vc.add();
-                    break;
-                case 2:
-                    vc.delete();
-                    break;
-                case 3:
-                    vc.listAll();
-                    break;
-                case 4:
-                    vc.findById();
-                    break;
-                case 5:
-                    vc.update();
-                    break;
-                case 6:
-                    System.out.println("Busca especial:");
-                    break;
+            try {
+                switch(opcao){
+                    case 0: return;
+                    case 1:
+                        vc.add();
+                        break;
+                    case 2:
+                        vc.delete();
+                        break;
+                    case 3:
+                        vc.listAll();
+                        break;
+                    case 4:
+                        vc.findById();
+                        break;
+                    case 5:
+                        vc.update();
+                        break;
+                    case 6:
+                        System.out.println("Busca especial:");
+                        break;
+                }
+            } catch (Exception e) {
+                out.showError(e.getMessage());
             }
+
         }
     }
 

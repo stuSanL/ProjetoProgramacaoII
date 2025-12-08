@@ -2,12 +2,10 @@ package com;
 
 import com.ui.App;
 
-import java.io.IOException;
-
 public class Main {
 
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         App app = new App();
         app.run();
     }
