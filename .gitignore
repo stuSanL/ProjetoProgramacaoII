@@ -1,3 +1,5 @@
+src/com/test/*
+
 ### IntelliJ IDEA ###
 out/
 !**/src/main/**/out/
