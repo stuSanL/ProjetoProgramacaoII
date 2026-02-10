@@ -1,6 +1,11 @@
 package com.ui;
 
+import com.exception.DataException;
+
 import java.io.InputStream;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Optional;
 import java.util.Scanner;
 
@@ -45,6 +50,17 @@ public class InputReader {
             case "n", "nao", "não", "no", "false", "0" -> Optional.of(false);
             default -> Optional.empty();
         });
+    }
+
+    public Optional<String> readDate(){
+        Optional<String> l =  readLine();
+        if(l.isEmpty()) return Optional.empty();
+        try{
+            LocalDate.parse(l.get().trim(), DateTimeFormatter.ISO_DATE);
+            return Optional.of(l.get().trim());
+        } catch(DateTimeParseException e){
+            throw new DataException("Data invalida!");
+        }
     }
 
 }

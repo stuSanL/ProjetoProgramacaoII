@@ -62,16 +62,16 @@ public class TanqueDAO {
         return tanques;
     }
 
-    public Tanque[] findByCombustivel(Combustivel combustivel) throws IOException {
+    public Tanque[] findByCombustivel(Combustivel c) throws IOException {
         Tanque[] tanques;
         int i = 0;
         for(Tanque t:  listAll()){
-            if(t.getCombustivel().equals(combustivel)) i++;
+            if(t.getCombustivel().getId() == c.getId()) i++;
         }
         tanques = new Tanque[i];
         i = 0;
         for(Tanque t:  listAll()){
-            if(t.getCombustivel().equals(combustivel)){
+            if(t.getCombustivel().getId() == c.getId()){
                 tanques[i++] = t;
             }
         }

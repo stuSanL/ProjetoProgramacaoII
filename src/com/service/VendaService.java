@@ -3,7 +3,10 @@ package com.service;
 import com.Paths;
 import com.dao.IdDAO;
 import com.dao.VendaDAO;
-import com.exception.LogisticException;
+import com.exception.DataException;
+import com.model.Cliente;
+import com.model.Funcionario;
+import com.model.Tanque;
 import com.model.Venda;
 
 import java.io.IOException;
@@ -26,7 +29,7 @@ public class VendaService {
         TanqueService ts = new TanqueService();
 
         if(v.getLitragem() > v.getTanque().getVolumeAtual()){
-            throw new LogisticException("Combustível insuficiente no tanque.");
+            throw new DataException("Combustível insuficiente no tanque.");
         }
 
         atualizarValor(v);
@@ -57,10 +60,26 @@ public class VendaService {
         vDao.update(v);
     }
 
+    public Venda[] findByCliente(Cliente c) throws IOException {
+        return vDao.findByCliente(c);
+    }
+
+    public Venda[] findByFuncionario(Funcionario f) throws IOException {
+        return vDao.findByFuncionario(f);
+    }
+
+    public Venda[] findByTanque(Tanque t) throws IOException {
+        return vDao.findByTanque(t);
+    }
+
+    public Venda[] findByData(String date) throws IOException {
+        return vDao.findByData(date);
+    }
+
     public void atualizarValor(Venda v){
         double valor = v.getTanque().getCombustivel().getValor() * v.getLitragem();
         double descontoAssinatura = 0.1;
-        if(v.getCliente().haveAssinatura())valor *= descontoAssinatura;
+        if(v.getCliente().haveAssinatura())valor -= (valor*descontoAssinatura);
         v.setValor(valor);
     }
     public void atualizaVolume(Venda v){

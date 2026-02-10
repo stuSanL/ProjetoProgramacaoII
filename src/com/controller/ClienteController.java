@@ -28,7 +28,7 @@ public class ClienteController {
         String nome = in.readLine().orElseThrow(()->new NullInputException("Nome do cliente"));
 
         out.showMessage("Data de Nascimento (yyyy-MM-dd): ");
-        String data = in.readLine().orElseThrow(()->new NullInputException("Data de Nascimento"));
+        String data = in.readDate().orElseThrow(()->new NullInputException("Data de Nascimento"));
 
         out.showMessage("Sexo: ");
         String sexo = in.readLine().orElseThrow(()->new NullInputException("Sexo"));
@@ -89,7 +89,7 @@ public class ClienteController {
         nome.ifPresent(c::setNome);
 
         out.showMessage("Data de Nascimento (yyyy-MM-dd): ");
-        Optional<String> data = in.readLine();
+        Optional<String> data = in.readDate();
         data.ifPresent(c::setDataNascimento);
 
         out.showMessage("Sexo: ");
@@ -121,8 +121,21 @@ public class ClienteController {
 
         out.printLine();
 
-        out.showMessage("CLIENTES CORRESPONDENTES");
+        out.showMessage("CLIENTES CORRESPONDENTES: ");
         for(Cliente c : cs.findByName(nome)){
+            out.showMessage(c.toString());
+        }
+    }
+
+    public void findByData() throws IOException {
+        out.showMessage("BUSCAR POR DATA");
+        out.showMessage("DATA: ");
+        String data = in.readDate().orElseThrow(()-> new NullInputException("DATA"));
+
+        out.printLine();
+
+        out.showMessage("CLIENTES CORRESPONDENTES: ");
+        for(Cliente c : cs.findByData(data)){
             out.showMessage(c.toString());
         }
     }

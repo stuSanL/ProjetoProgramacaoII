@@ -18,7 +18,7 @@ public class MenuRenderer {
     }
 
     public void renderMenu(String title, String[] opcoes){
-        out.println("-----" + title + "-----");
+        out.println("----- " + title + " -----");
         for(int i = 0; i < opcoes.length; i++){
             out.printf("%d - %s%n", i , opcoes[i]);
         }
@@ -34,7 +34,7 @@ public class MenuRenderer {
     }
 
     public void showUpdateMessage(){
-        showMessage("Para qualquer campo abaixo, deixe a linha em branco caso não queira alterar ou -1 para numéricos.");
+        showMessage("Para qualquer campo abaixo, deixe a linha em branco caso não queira alterar.");
     }
 
     public int readOption(int min, int max){

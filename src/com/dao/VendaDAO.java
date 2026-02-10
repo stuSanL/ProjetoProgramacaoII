@@ -127,8 +127,8 @@ public class VendaDAO {
     }
 
     public Venda[] findByData(String data) throws IOException {
-        LocalDate d =  LocalDate.parse(data, DateTimeFormatter.ISO_DATE);
         Venda[] vendas;
+        LocalDate d = LocalDate.parse(data, DateTimeFormatter.ISO_DATE);
         int i = 0;
         for(Venda v :  listAll()){
             if(v.getDataVenda().equals(d)) i++;

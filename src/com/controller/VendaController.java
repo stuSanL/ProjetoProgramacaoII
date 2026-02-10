@@ -2,6 +2,9 @@ package com.controller;
 
 import com.exception.NullInputException;
 import com.exception.ResourceNotFoundException;
+import com.model.Cliente;
+import com.model.Funcionario;
+import com.model.Tanque;
 import com.model.Venda;
 import com.service.ClienteService;
 import com.service.FuncionarioService;
@@ -157,4 +160,65 @@ public class VendaController {
 
         out.showMessage("Venda atualizada com sucesso.");
     }
+
+    public void findByCliente() throws IOException {
+        ClienteService cs = new ClienteService();
+        out.showMessage("BUSCAR POR CLIENTE");
+        out.showMessage("ID do cliente: ");
+        Cliente c = cs.findById(in.readInteger()
+                .orElseThrow(()-> new NullInputException("Id do Cliente"))
+        );
+        out.showMessage("Cliente selecionado: ");
+        out.showMessage(c.toString());
+        out.printLine();
+        out.showMessage("Lista de Vendas: ");
+        for(Venda v : vs.findByCliente(c)){
+            out.showMessage(v.toString());
+        }
+    }
+
+    public void findByFuncionario() throws IOException {
+        FuncionarioService fs = new FuncionarioService();
+        out.showMessage("BUSCAR POR FUNCIONÁRIO");
+        out.showMessage("ID do funcionário: ");
+        Funcionario f = fs.findById(in.readInteger()
+                .orElseThrow(()-> new NullInputException("ID do Funcionário"))
+        );
+        out.showMessage("Funcionário selecionado: ");
+        out.showMessage(f.toString());
+        out.printLine();
+        out.showMessage("Lista de Vendas: ");
+        for(Venda v : vs.findByFuncionario(f)){
+            out.showMessage(v.toString());
+        }
+    }
+
+    public void findByTanque() throws IOException {
+        TanqueService ts = new TanqueService();
+        out.showMessage("BUSCAR POR TANQUE");
+        out.showMessage("ID do tanque: ");
+        Tanque t = ts.findById(in.readInteger()
+                .orElseThrow(()-> new NullInputException("Id do Tanque"))
+        );
+        out.showMessage("Tanque selecionado: ");
+        out.showMessage(t.toString());
+        out.printLine();
+        out.showMessage("Lista de Vendas: ");
+        for(Venda v : vs.findByTanque(t)){
+            out.showMessage(v.toString());
+        }
+    }
+
+    public void findByData() throws IOException {
+        out.showMessage("BUSCAR POR DATA");
+        out.showMessage("Digite a data: ");
+        String data = in.readDate().orElseThrow(()-> new NullInputException("Data"));
+        out.showMessage("Lista de vendas: ");
+        for(Venda v : vs.findByData(data)){
+            out.showMessage(v.toString());
+        }
+    }
+
+
+
 }

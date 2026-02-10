@@ -4,6 +4,7 @@ import com.Paths;
 import com.controller.*;
 
 import java.io.File;
+import java.io.IOException;
 
 public class App {
 
@@ -41,26 +42,15 @@ public class App {
     }
 
     private static void menuPrincipal() {
-        int opcao;
         while(true){
             out.renderMenu("GPC", opcoesMain);
-            opcao = out.readOption(0, 7);
-            switch(opcao){
+            switch(out.readOption(0, opcoesMain.length-1)){
                 case 0: return;
-                case 1:
-                    gerirCombustivel();
-                    break;
-                case 2:
-                    gerirTanque();
-                    break;
-                case 3:
-                    gerirCliente();
-                case 4:
-                    gerirFuncionario();
-                    break;
-                case 5:
-                    gerirVenda();
-                    break;
+                case 1: gerirCombustivel(); break;
+                case 2: gerirTanque(); break;
+                case 3: gerirCliente(); break;
+                case 4: gerirFuncionario(); break;
+                case 5: gerirVenda(); break;
                 case 6:
                     initialize();
                     out.showMessage("Sistema reinicializado.");
@@ -71,31 +61,17 @@ public class App {
     }
 
     private static void gerirCombustivel() {
-        int opcao;
         while(true){
             out.renderMenu("Combustíveis", opcoesBase);
-            opcao = out.readOption(0, 7);
             try {
-                switch(opcao){
+                switch(out.readOption(0, opcoesBase.length-1)){
                     case 0: return;
-                    case 1:
-                        coc.add();
-                        break;
-                    case 2:
-                        coc.delete();
-                        break;
-                    case 3:
-                        coc.listAll();
-                        break;
-                    case 4:
-                        coc.findById();
-                        break;
-                    case 5:
-                        coc.update();
-                        break;
-                    case 6:
-                        System.out.println("Busca especial:");
-                        break;
+                    case 1: coc.add(); break;
+                    case 2: coc.delete(); break;
+                    case 3: coc.listAll(); break;
+                    case 4: coc.findById(); break;
+                    case 5: coc.update(); break;
+                    case 6: buscaEspecialCombustivel(); break;
                 }
             } catch (Exception e) {
                 out.showError(e.getMessage());
@@ -104,13 +80,15 @@ public class App {
         }
     }
 
+    private static void buscaEspecialCombustivel() throws IOException {
+        coc.findByName();
+    }
+
     private static void gerirTanque() {
-        int opcao;
         while(true){
             out.renderMenu("Tanques", opcoesBase);
-            opcao = out.readOption(0, 7);
             try {
-                switch(opcao){
+                switch(out.readOption(0, opcoesBase.length -1)){
                     case 0: return;
                     case 1:
                         tc.add();
@@ -128,7 +106,7 @@ public class App {
                         tc.update();
                         break;
                     case 6:
-                        System.out.println("Busca especial:");
+                        buscaEspecialTanque();
                         break;
                 }
             } catch (Exception e) {
@@ -138,13 +116,15 @@ public class App {
         }
     }
 
+    private static void buscaEspecialTanque() throws IOException {
+        tc.findByCombustivel();
+    }
+
     private static void gerirCliente() {
-        int opcao;
         while(true){
             out.renderMenu("Clientes", opcoesBase);
-            opcao = out.readOption(0, 7);
             try {
-                switch(opcao){
+                switch(out.readOption(0,opcoesBase.length -1)){
                 case 0: return;
                 case 1:
                     clc.add();
@@ -162,7 +142,7 @@ public class App {
                     clc.update();
                     break;
                 case 6:
-                    System.out.println("Busca especial:");
+                    buscaEspecialCliente();
                     break;
                 }
             } catch (Exception e) {
@@ -172,13 +152,28 @@ public class App {
         }
     }
 
+    private static void buscaEspecialCliente() throws IOException {
+        String[] buscasEspeciais = {
+                "Voltar", "Nome", "Data"
+        };
+        out.renderMenu("Cliente: Busca especial", buscasEspeciais);
+        switch (out.readOption(0, buscasEspeciais.length -1)) {
+            case 0: return;
+            case 1:
+                clc.findByName();
+                break;
+            case 2:
+                clc.findByData();
+                break;
+
+        }
+    }
+
     private static void gerirFuncionario() {
-        int opcao;
         while(true){
             out.renderMenu("Funcionários", opcoesBase);
-            opcao = out.readOption(0, 7);
             try {
-                switch(opcao){
+                switch(out.readOption(0, opcoesBase.length -1)){
                     case 0: return;
                     case 1:
                         fc.add();
@@ -196,7 +191,7 @@ public class App {
                         fc.update();
                         break;
                     case 6:
-                        System.out.println("Busca especial:");
+                        buscaEspecialFuncionario();
                         break;
                 }
             } catch (Exception e) {
@@ -206,13 +201,25 @@ public class App {
         }
     }
 
+    private static void buscaEspecialFuncionario() throws IOException {
+        String[] buscasEspeciais = {
+                "Voltar", "Nome", "Data"
+        };
+
+        out.renderMenu("Funcionario: Busca especial", buscasEspeciais);
+
+        switch (out.readOption(0, buscasEspeciais.length -1)) {
+            case 0: return;
+            case 1: fc.findByName(); break;
+            case 2: fc.findByDate(); break;
+        }
+    }
+
     private static void gerirVenda() {
-        int opcao;
         while(true){
             out.renderMenu("Vendas", opcoesBase);
-            opcao = out.readOption(0, 7);
             try {
-                switch(opcao){
+                switch(out.readOption(0, opcoesBase.length -1)){
                     case 0: return;
                     case 1:
                         vc.add();
@@ -230,13 +237,30 @@ public class App {
                         vc.update();
                         break;
                     case 6:
-                        System.out.println("Busca especial:");
+                        buscaEspecialVenda();
                         break;
                 }
             } catch (Exception e) {
                 out.showError(e.getMessage());
             }
 
+        }
+    }
+
+    private static void buscaEspecialVenda() throws IOException {
+        String[] buscasEspeciais = {
+                "Voltar", "Cliente", "Funcionario",
+                "Tanque", "Data"
+        };
+
+        out.renderMenu("Cliente: Busca especial", buscasEspeciais);
+
+        switch (out.readOption(0, buscasEspeciais.length -1)) {
+            case 0: return;
+            case 1: vc.findByCliente(); break;
+            case 2: vc.findByFuncionario(); break;
+            case 3: vc.findByTanque(); break;
+            case 4: vc.findByData(); break;
         }
     }
 

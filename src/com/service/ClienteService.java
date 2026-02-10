@@ -44,4 +44,8 @@ public class ClienteService {
         return cDao.findByNome(name);
     }
 
+    public Cliente[] findByData(String data) throws IOException {
+        return cDao.findByData(data);
+    }
+
 }

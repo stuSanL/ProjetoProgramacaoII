@@ -28,7 +28,7 @@ public class FuncionarioController {
         String nome = in.readLine().orElseThrow(()->new NullInputException("Nome do cliente"));
 
         out.showMessage("Data de Nascimento (yyyy-MM-dd): ");
-        String data = in.readLine().orElseThrow(()->new NullInputException("Data de Nascimento"));
+        String data = in.readDate().orElseThrow(()->new NullInputException("Data de Nascimento"));
 
         out.showMessage("Sexo: ");
         String sexo = in.readLine().orElseThrow(()->new NullInputException("Sexo"));
@@ -95,7 +95,7 @@ public class FuncionarioController {
         nome.ifPresent(f::setNome);
 
         out.showMessage("Data de Nascimento (yyyy-MM-dd): ");
-        Optional<String> data = in.readLine();
+        Optional<String> data = in.readDate();
         data.ifPresent(f::setDataNascimento);
 
         out.showMessage("Sexo: ");
@@ -140,5 +140,20 @@ public class FuncionarioController {
             out.showMessage(f.toString());
         }
     }
+
+    public void findByDate() throws IOException {
+        out.showMessage("BUSCAR POR DATA");
+        out.showMessage("DATA: ");
+        String d = in.readDate().orElseThrow(()-> new NullInputException("Data"));
+
+        out.printLine();
+
+        out.showMessage("FUNCIONÁRIOS CORRESPONDENTES");
+        for(Funcionario f : fs.findByData(d)){
+            out.showMessage(f.toString());
+        }
+    }
+
+
 
 }

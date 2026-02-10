@@ -57,6 +57,6 @@ public class Tanque {
     @Override
     public String toString() {
         return "%d - %s (%.1fL / %.1fL)"
-                .formatted(this.id, this.combustivel.getNome(), this.capacidade, this.volumeAtual);
+                .formatted(this.id, this.combustivel.getNome(), this.volumeAtual, this.capacidade);
     }
 }

@@ -5,6 +5,7 @@ import com.exception.DataException;
 import com.model.Cliente;
 
 import java.io.*;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
@@ -74,16 +75,33 @@ public class ClienteDAO {
         for(Cliente c : listAll()){
             if(c.getNome().toLowerCase().contains(nome.toLowerCase())) i++;
         }
+
         Cliente[] clientes = new Cliente[i];
-
-        if(clientes.length == 0) throw new DataException("Sem clientes com esse nome ( " + nome + " )");
-
         i = 0;
+
         for(Cliente c : listAll()){
             if(c.getNome().toLowerCase().contains(nome.toLowerCase())){
                 clientes[i++] = c;
             }
         }
+        verificaVetorVazio(clientes);
+        return clientes;
+    }
+
+    public Cliente[] findByData(String data) throws IOException {
+        LocalDate d = LocalDate.parse(data, DateTimeFormatter.ISO_DATE);
+        int i = 0;
+        for(Cliente c : listAll()){
+            if(c.getDataNascimento().isEqual(d)) i++;
+        }
+
+        Cliente[] clientes = new Cliente[i];
+        i = 0;
+
+        for(Cliente c : listAll()){
+            if(c.getDataNascimento().isEqual(d)) clientes[i++] = c;
+        }
+
         verificaVetorVazio(clientes);
         return clientes;
     }

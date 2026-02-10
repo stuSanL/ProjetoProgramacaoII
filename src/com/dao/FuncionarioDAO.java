@@ -5,6 +5,7 @@ import com.exception.DataException;
 import com.model.Funcionario;
 
 import java.io.*;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
@@ -89,6 +90,26 @@ public class FuncionarioDAO {
                 i++;
             }
         }
+        verificaVetorVazio(funcionarios);
+        return funcionarios;
+    }
+
+    public Funcionario[] findByData(String data) throws IOException {
+        LocalDate d = LocalDate.parse(data, DateTimeFormatter.ISO_DATE);
+
+        int i = 0;
+
+        for(Funcionario f : listAll()){
+            if(f.getDataNascimento().isEqual(d)) i++;
+        }
+
+        Funcionario[] funcionarios = new Funcionario[i];
+        i = 0;
+
+        for(Funcionario f : listAll()){
+            if(f.getDataNascimento().isEqual(d)) funcionarios[i++] = f;
+        }
+
         verificaVetorVazio(funcionarios);
         return funcionarios;
     }

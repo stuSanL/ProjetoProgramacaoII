@@ -43,4 +43,8 @@ public class FuncionarioService {
     public Funcionario[] findByName(String name) throws IOException {
         return fDao.findByNome(name);
     }
+
+    public Funcionario[] findByData(String data) throws IOException {
+        return fDao.findByData(data);
+    }
 }
